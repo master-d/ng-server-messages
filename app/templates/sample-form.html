@@ -1,0 +1,36 @@
+<!-- could use <div ng-controller="MyApiFormController as ctrl"> in traditional mode -->
+
+<md-content layout-padding>
+  <form id="myForm" name="myForm" api-form="ctrl.savePromise">
+    <div ng-if="myForm.$api.$invalid" style="margin-bottom:15px;">
+      <ng-messages for="myForm.$api.$error" role="alert" style="color: rgb(244,67,54);">
+        <ng-message when="global">{{myForm.$api.$error.global}}</ng-message>
+      </ng-messages>
+      <br>
+    </div>
+  
+    <md-input-container flex>
+      <label>Some input with API errors</label>
+      <input type="text" name="fieldName" ng-model="ctrl.formModel.fieldModel" api-validate/>
+      <ng-messages for="myForm.fieldName.$error" role="alert">
+        <ng-message when="required">API tells that this is required.</ng-message>
+        <ng-message when="fieldName">{{myForm.$api.$error.fieldName}}</ng-message>
+      </ng-messages>
+    </md-input-container>
+    
+    <md-input-container flex>
+      <label>Some input without API errors</label>
+      <input type="text" name="fieldName2" ng-model="ctrl.formModel.fieldModel2"/>
+    </md-input-container>
+    
+    <section layout="row" layout-sm="column" layout-align="center center">
+      <md-button class="md-raised" type="submit" ng-click="ctrl.save(myForm)" ng-disabled="myForm.$invalid">Save</md-button>
+    </section>
+  </form>
+</md-content>
+<md-content layout-padding>
+  <p>
+    Just click Save couple of times (remember to modify input when field error is there).
+    Errors are a bit random :)
+  </p>
+</md-content>
